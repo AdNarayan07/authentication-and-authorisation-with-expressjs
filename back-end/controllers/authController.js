@@ -187,6 +187,7 @@ module.exports = {
     login,
     logout,
     register,
+    delete_user_by_username,
     load_user_profile,
     update_user_profile
 }
