@@ -13,6 +13,6 @@ router.post('/register', (req, res) => authController.register(req, res))
 
 router.get('/user', authentication, authorisation("user"), (req, res) => authController.load_user_profile(req, res))
 router.put('/user', authentication, authorisation("user"), (req, res) => authController.update_user_profile(req, res))
-router.delete('/user', authentication, authorisation("user"), (req, res) => authController.delete_user_by_username(req,res))
+router.delete('/user', authentication, (req, res) => authController.delete_user_by_username(req,res)) //Delete user functionality can be done after authentication (and no authorisation), for the purpose of bounty
 
 module.exports = router;
