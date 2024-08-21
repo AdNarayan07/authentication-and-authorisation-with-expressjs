@@ -101,6 +101,23 @@ const register = async (req, res) => {
     }
 }
 
+const delete_user_by_username = async (req, res) => {
+    try {
+        let { username } = req.body;
+        if(!username) return res.status(400).json({ message: "Invalid Request" });
+
+        let user = await UserModel.findOne({ where: { username: username } });
+        if (user){
+            user.destroy();
+            return res.status(200).json({ message: "User Deleted", ok: true, })
+        } else {
+            res.status(400).json({ message: "User not found", ok: false, });
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: "Server Error" })
+    }
+}
 const load_user_profile = async (req, res) => {
     try {
         let user_id = await get_user_id(req) // Get user id from JWT token by the helper function
@@ -128,7 +145,6 @@ const load_user_profile = async (req, res) => {
         return res.status(500).json({ message: "Server Error" })
     }
 }
-
 
 const update_user_profile = async (req, res) => {
     try {
